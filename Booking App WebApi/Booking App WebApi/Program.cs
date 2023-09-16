@@ -1,9 +1,12 @@
+using Booking_App_WebApi.Model;
 using Booking_App_WebApi.Model.MongoDBFD;
 using In_Anh.RabitMQ;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +39,9 @@ builder.Services.AddScoped<IBoatBookingMgDatabase, BoatBookingMgDatabase>();
 
 builder.Services.AddScoped<IRabitMQProducer, RabitMQProducer>();
 
+
+
+builder.Services.AddSingleton<BookingService>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
